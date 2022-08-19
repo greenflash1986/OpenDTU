@@ -7,6 +7,7 @@
 // #include "NtpSettings.h"
 #include "defaults.h"
 #include <Arduino.h>
+#include "Clock_Impl_Atmega.h"
 
 // https://forum.arduino.cc/t/compiler-confusion-headers/569022/2
 
@@ -48,7 +49,8 @@ void setup()
     // Initialize inverter communication
     Serial.print(F("Initialize Hoymiles interface... "));
     // CONFIG_T& config = Configuration.get();
-    Hoymiles.init();
+    Clock_Impl_Atmega clock;
+    Hoymiles.init(&clock);
     Hoymiles.getRadio()->setPALevel(RF24_PA_MAX); // (rf24_pa_dbm_e)config.Dtu_PaLevel);
     Hoymiles.getRadio()->setDtuSerial(12345); // TODO config.Dtu_Serial);
     Hoymiles.setPollInterval(60); // TODOconfig.Dtu_PollInterval);
