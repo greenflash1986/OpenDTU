@@ -49,8 +49,10 @@ void setup()
     // Initialize inverter communication
     Serial.print(F("Initialize Hoymiles interface... "));
     // CONFIG_T& config = Configuration.get();
+    SPIClass* spiClass = new SPIClass();
+    spiClass->begin();
     Clock_Impl_Atmega clock;
-    Hoymiles.init(&clock);
+    Hoymiles.init(spiClass, &clock);
     Hoymiles.getRadio()->setPALevel(RF24_PA_MAX); // (rf24_pa_dbm_e)config.Dtu_PaLevel);
     Hoymiles.getRadio()->setDtuSerial(12345); // TODO config.Dtu_Serial);
     Hoymiles.setPollInterval(60); // TODOconfig.Dtu_PollInterval);
